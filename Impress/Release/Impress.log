@@ -1,8 +1,10 @@
-﻿  FontSetup.cpp
-     Создается библиотека E:\vs projects\Impress\Release\Impress.lib и объект E:\vs projects\Impress\Release\Impress.exp
+﻿  pch.cpp
+  dllmain.cpp
+  FontSetup.cpp
+  main.cpp
+     Создается библиотека E:\GitHub repos\SA2-ImpressFont\Release\Impress.lib и объект E:\GitHub repos\SA2-ImpressFont\Release\Impress.exp
   Создание кода
-  0 of 289 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 289 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Создание кода завершено
-  Impress.vcxproj -> E:\vs projects\Impress\Release\Impress.dll
+  Impress.vcxproj -> E:\GitHub repos\SA2-ImpressFont\Release\Impress.dll
