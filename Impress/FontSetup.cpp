@@ -7,7 +7,6 @@
 /* Loading font */
 
 const int FontFileSize = 1016064;
-
 std::string ImpressPath = "\\gd_PC\\efmsgfont_ascii24S.bin";
 
 
@@ -228,13 +227,13 @@ std::vector<LetterData> ImpressSetup
 
 void WriteFontData(std::vector<LetterData> fontData)
 {
-	DataArray(byte, MainFontSetup, 0x89F3E8, 224);
-	DataArray(byte, ChaoWorldFontSetup, 0x8A78D0, 224);
+	DataArray(byte, mainFontSetup, 0x89F3E8, 224);
+	DataArray(byte, chaoWorldFontSetup, 0x8A78D0, 224);
 
 	for (auto& letter : fontData)
 	{
-		MainFontSetup[letter.LetterCode - ' '] = letter.Width;
-		ChaoWorldFontSetup[letter.LetterCode - ' '] = letter.Width;
+		mainFontSetup[letter.LetterCode - ' '] = letter.Width;
+		chaoWorldFontSetup[letter.LetterCode - ' '] = letter.Width;
 	}
 }
 
