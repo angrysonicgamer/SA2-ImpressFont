@@ -225,7 +225,7 @@ std::vector<LetterData> ImpressSetup
 	{ L'ÿ', 11 },
 };
 
-void WriteFontData(std::vector<LetterData> fontData)
+void WriteFontData(const std::vector<LetterData>& fontData)
 {
 	DataArray(byte, mainFontSetup, 0x89F3E8, 224);
 	DataArray(byte, chaoWorldFontSetup, 0x8A78D0, 224);
