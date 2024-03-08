@@ -4,11 +4,16 @@
 #include "modapi.h"
 
 
-/* Loading font */
-
 const int FontFileSize = 1016064;
+DataPointer(int, FontDataAddress, 0xB5D64C);
+DataArray(char, FontMemory, FontDataAddress, FontFileSize);
+DataArray(byte, MainFontSetup, 0x89F3E8, 224);
+DataArray(byte, ChaoWorldFontSetup, 0x8A78D0, 224);
+
 std::string ImpressPath = "\\gd_PC\\efmsgfont_ascii24S.bin";
 
+
+/* Loading font */
 
 std::vector<char> ReadAllBytes(std::string path)
 {
@@ -25,14 +30,11 @@ std::vector<char> ReadAllBytes(std::string path)
 
 void LoadMainFont(std::string modPath, std::string fontPath) //function to export (just playing around)
 {
-	DataPointer(int, fontDataAddress, 0xB5D64C);
-	DataArray(char, fontMemory, fontDataAddress, FontFileSize);
-	
 	std::vector<char> fontBytes = ReadAllBytes(modPath + fontPath);
 
 	for (int i = 0; i < FontFileSize; i++)
 	{
-		fontMemory[i] = fontBytes[i];
+		FontMemory[i] = fontBytes[i];
 	}
 }
 
@@ -227,13 +229,10 @@ std::vector<LetterData> ImpressSetup
 
 void WriteFontData(const std::vector<LetterData>& fontData)
 {
-	DataArray(byte, mainFontSetup, 0x89F3E8, 224);
-	DataArray(byte, chaoWorldFontSetup, 0x8A78D0, 224);
-
 	for (auto& letter : fontData)
 	{
-		mainFontSetup[letter.LetterCode - ' '] = letter.Width;
-		chaoWorldFontSetup[letter.LetterCode - ' '] = letter.Width;
+		MainFontSetup[letter.LetterCode - ' '] = letter.Width;
+		ChaoWorldFontSetup[letter.LetterCode - ' '] = letter.Width;
 	}
 }
 
