@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Mod.h">
+    <ClInclude Include="FontSetup.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Modapi.h">

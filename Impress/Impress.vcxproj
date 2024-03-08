@@ -141,7 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Mod.h" />
+    <ClInclude Include="FontSetup.h" />
     <ClInclude Include="Modapi.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

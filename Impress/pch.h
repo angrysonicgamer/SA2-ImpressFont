@@ -10,7 +10,5 @@
 // Добавьте сюда заголовочные файлы для предварительной компиляции
 #include "framework.h"
 #include "include/SA2ModLoader.h"
-#include "Mod.h"
-#include <vector>
 
 #endif //PCH_H

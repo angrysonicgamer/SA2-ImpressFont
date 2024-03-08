@@ -1,7 +1,8 @@
 ﻿#include "pch.h"
 #include <string>
+#include <vector>
 #include <fstream>
-#include "modapi.h"
+#include "Modapi.h"
 
 
 const int FontFileSize = 1016064;
