@@ -53,6 +53,7 @@ struct CameraParam;
 using ObjectFuncPtr = void(__cdecl*)(ObjectMaster*);
 using TaskFuncPtr = void(__cdecl*)(task*);
 using CameraFuncPtr = void(__cdecl*)(CameraInfo*, CameraParam*);
+using ModelFuncPtr = void(__cdecl*)(NJS_OBJECT*);
 
 // All structs should be packed.
 #pragma pack(push, 1)
@@ -1264,7 +1265,9 @@ struct SonicCharObj2
 	char gap35E[8];
 	__int16 SomersaultTime;
 	__int16 SpindashCounter;
-	char field_36A[14];
+	char field_36A[6];
+	int FlameRingPulse;
+	int BounceBraceletPulse;
 	NJS_VECTOR SpineJigglePos;
 	NJS_VECTOR LightDashPos;
 	JiggleInfo* SpineJiggle;
@@ -1688,18 +1691,68 @@ struct EmeManObj2
 struct KnucklesCharObj2
 {
 	CharObj2Base base;
-	char field_1BC[560];
+	char field_1BC[40];
+	NJS_POINT3 righthand_vec;
+	NJS_POINT3 lefthand_vec;
+	NJS_POINT3 rightfoot_vec;
+	NJS_POINT3 leftfoot_vec;
+	NJS_POINT3 head_vec0;
+	NJS_POINT3 head_vec1;
+	NJS_POINT3 bodycenter_vec;
+	char field_23C[48];
+	NJS_POINT3 righthand_pos0;
+	NJS_POINT3 lefthand_pos0;
+	NJS_POINT3 righthand_pos1;
+	NJS_POINT3 lefthand_pos1;
+	NJS_POINT3 rightfoot_pos;
+	NJS_POINT3 leftfoot_pos;
+	NJS_POINT3 head0_pos;
+	NJS_POINT3 head1_pos;
+	NJS_POINT3 bodycenter_pos;
+	char field_2D8[214];
+	__int16 WingAction;
+	int WingAnimID;
+	int WingAnimID2;
+	float WingFloat;
+	char field_3BC[4];
+	NJS_VECTOR SomeVector;
+	NJS_VECTOR TorsoJigglePos;
+	NJS_VECTOR HeadJigglePos;
+	JiggleInfo* HeadJiggle;
+	JiggleInfo* LowerTorsoJiggle;
+	JiggleInfo* UpperTorsoJiggle;
 	NJS_TEXLIST *TextureList;
 	NJS_TEXLIST *EffectTextureList;
 	ModelIndex *ModelList;
 	AnimationIndex *MotionList;
-	char field_400[32];
+	NJS_MOTION *WingMotion;
+	char field_404[12];
+	NJS_MOTION *WingShapeMotion;
+	char field_414[12];
 };
 
 struct EggmanCharObj2
 {
 	CharObj2Base base;
-	char field_1BC[416];
+	char field_1BC[40];
+	NJS_POINT3 righthand_vec;
+	NJS_POINT3 lefthand_vec;
+	NJS_POINT3 rightfoot_vec;
+	NJS_POINT3 leftfoot_vec;
+	NJS_POINT3 head_vec0;
+	NJS_POINT3 head_vec1;
+	NJS_POINT3 bodycenter_vec;
+	char field_23C[48];
+	NJS_POINT3 righthand_pos0;
+	NJS_POINT3 lefthand_pos0;
+	NJS_POINT3 righthand_pos1;
+	NJS_POINT3 lefthand_pos1;
+	NJS_POINT3 rightfoot_pos;
+	NJS_POINT3 leftfoot_pos;
+	NJS_POINT3 head0_pos;
+	NJS_POINT3 head1_pos;
+	NJS_POINT3 bodycenter_pos;
+	char field_2D8[136];
 	NJS_TEXLIST *TextureList;
 	ModelIndex *ModelList;
 	AnimationIndex *MotionList;
@@ -1708,26 +1761,30 @@ struct EggmanCharObj2
 struct MechEggmanCharObj2
 {
 	CharObj2Base base;
-	char field_1BC[124];
-	float field_23C;
-	char field_240[4];
-	float field_244;
-	int field_248;
-	char field_24C[8];
-	float field_254;
-	float field_258;
-	float field_25C;
-	char field_260[120];
-	float field_2D8;
-	float field_2DC;
-	float field_2E0;
-	float field_2E4;
-	float field_2E8;
-	float field_2EC;
-	float field_2F0;
-	float field_2F4;
-	float field_2F8;
-	char field_2FC[96];
+	char field_1BC[40];
+	NJS_POINT3 meleeweapon_vec;
+	char field_1F4[12];
+	NJS_POINT3 rightfoot_vec;
+	NJS_POINT3 leftfoot_vec;
+	NJS_POINT3 mechtorsotop0_vec;
+	char field_224[12];
+	NJS_POINT3 mechtorsobottom_vec;
+	NJS_POINT3 blasterbarrel_vec;
+	NJS_POINT3 shot_vec;
+	NJS_POINT3 lockonlaser_vec;
+	NJS_POINT3 mechtorsotop1_vec;
+	NJS_POINT3 meleeweapon_pos;
+	char field_278[36];
+	NJS_POINT3 rightfoot_pos;
+	NJS_POINT3 leftfoot_pos;
+	NJS_POINT3 mechtorsotop0_pos;
+	char field_2C0[12];
+	NJS_POINT3 mechtorsobottom_pos;
+	NJS_POINT3 blasterbarrel_pos;
+	NJS_POINT3 shot_pos;
+	NJS_POINT3 lockonlaser_pos;
+	NJS_POINT3 mechtorsotop1_pos;
+	char field_308[84];
 	char field_35C;
 	char field_35D;
 	char field_35E;
@@ -1741,20 +1798,27 @@ struct MechEggmanCharObj2
 	__int16 field_36C;
 	__int16 field_36E;
 	char field_370[4];
-	float field_374;
-	char field_378[8];
+	float rockettimer;
+	float field_378;
+	char field_37C[4];
 	int field_380;
 	char field_384[12];
 	float field_390;
 	float field_394;
 	float field_398;
 	int field_39C;
-	char field_3A0[132];
-	int field_424;
-	int field_428;
-	int field_42C;
-	int field_430;
-	int field_434;
+	NJS_POINT3 rockets_pos;
+	char field_3AC[60];
+	NJS_POINT3 rockets_vec;
+	NJS_POINT3 leftcalf_vec;
+	NJS_POINT3 rightcalf_vec;
+	NJS_POINT3 leftcalf_pos;
+	NJS_POINT3 rightcalf_pos;
+	Angle BlasterAimAngle;
+	Angle MechTorsoTopAimAngle;
+	int LaserBlasterPulse;
+	int CannonUpgradeRecoil;
+	int BlasterBarrelRecoil;
 	float field_438;
 	float field_43C;
 	float field_440;
@@ -1797,7 +1861,27 @@ struct TailsCharObj2
 struct SuperSonicCharObj2
 {
 	CharObj2Base base;
-	char field_1BC[432];
+	char field_1BC[40];
+	NJS_POINT3 righthand_vec;
+	NJS_POINT3 lefthand_vec;
+	NJS_POINT3 rightfoot_vec;
+	NJS_POINT3 leftfoot_vec;
+	NJS_POINT3 head_vec0;
+	NJS_POINT3 head_vec1;
+	NJS_POINT3 bodycenter_vec;
+	char field_23C[48];
+	NJS_POINT3 righthand_pos0;
+	NJS_POINT3 lefthand_pos0;
+	NJS_POINT3 righthand_pos1;
+	NJS_POINT3 lefthand_pos1;
+	NJS_POINT3 rightfoot_pos;
+	NJS_POINT3 leftfoot_pos;
+	NJS_POINT3 head0_pos;
+	NJS_POINT3 head1_pos;
+	NJS_POINT3 bodycenter_pos;
+	char field_2D8[136];
+	NJS_VECTOR SpineJigglePos;
+	JiggleInfo *SpineJiggle;
 	NJS_TEXLIST *TextureList;
 	ModelIndex *ModelList;
 	AnimationIndex *MotionList;
@@ -1921,19 +2005,357 @@ struct EnemyData
 	EnemyMotionData motiondata; // For EnemySetMotion, pobj and plactptr necessary
 };
 
+struct CutsceneTexAnimIDs
+{
+	int TexID;
+	int	TexLoopNumber;
+};
+
+struct UVEditEntry
+{
+	void    *UVAddress;
+	NJS_TEX	UV;
+};
+
+struct EventTexAnim
+{
+	int			 TexID;
+	void		 *PolyMaterial;
+	int			 UVEditCount;
+	UVEditEntry	 *UVEdits;
+};
+
+struct CutsceneTexAnimMain
+{
+	NJS_OBJECT		*Model;
+	int				AnimCount;
+	EventTexAnim	*Data;
+};
+
+struct CutsceneTexAnim
+{
+	CutsceneTexAnimMain	*Data;
+	CutsceneTexAnimIDs	*TexID;
+	int					DataCount;
+};
+
+struct UpgradeListData
+{
+	NJS_OBJECT	*RootModel;
+	NJS_OBJECT	*Upgrade1Attach;
+	NJS_OBJECT  *Upgrade1Model;
+	NJS_OBJECT	*Upgrade2Attach;
+	NJS_OBJECT	*Upgrade2Model;
+};
+
+struct UpgradeList
+{
+	UpgradeListData Data[18];
+};
+
+struct UpgradeOverrideList
+{
+	NJS_OBJECT	*Upgrade1[31];
+	NJS_OBJECT	*Upgrade2[31];
+	NJS_OBJECT	*NormalModel[31];
+};
+
+struct BlurModels
+{
+	NJS_OBJECT	*models[64];
+};
+
+struct ReflectPlane
+{
+	NJS_POINT3 points[4];
+};
+
+struct ReflectionData
+{
+	int				DataSets;
+	int				Transparency[32];
+	ReflectPlane	*ReflectionPlane;
+};
+
+struct BigCameoData
+{
+	NJS_OBJECT	*Model;
+	NJS_MOTION	*AnimationArray;
+	int			AnimationCount;
+	int			Unk;
+};
+
+struct CutsceneEntityData
+{
+	NJS_OBJECT		*Model;
+	NJS_MOTION		*Animation;
+	NJS_MOTION		*ShapeMotion;
+	NJS_OBJECT		*GCModel;
+	NJS_OBJECT		*ShadowModel;
+	int				Unk;
+	NJS_POINT3		Position;
+	int				Flags;
+	int				DisplayLayer;
+};
+
+struct CutsceneAssetArray
+{
+	CutsceneEntityData  *entity;
+	int					entityCount;
+	NJS_MOTION			*cameraArray;
+	int					cameraArrayCount;
+	NJS_MOTION			*particleMotionArray;
+	int					particleMotionCount;
+	BigCameoData		*bigCameo;
+	Uint32				frameCount;
+};
+
 struct EventFileHeader
 {
-	void *field_0;
-	NJS_TEXLIST *field_4;
+	CutsceneAssetArray	*assets;
+	NJS_TEXLIST			*texlist;
+	int					sceneCount;
+	void				*texDimensions;
+	ReflectionData		*reflectionData;
+	BlurModels			*blurModels;
+	UpgradeOverrideList *upgradeOverrideList;
+	NJS_OBJECT			**tailsTails;
+	UpgradeList			*upgradeList;
+	CutsceneTexAnim		*texanimData;
+	int					shadowControl;
+};
+
+struct EventSubtitleData
+{
+	int FrameStart;
+	int VisibleTime;
+};
+
+struct EventAudioData
+{
+	int FrameStart;
+	char SFXInit;
+	char CreditsControl;
+	__int16 VoiceID;
+	char MusicName[16];
+	char JingleName[16];
+	char field_28[32];
+};
+
+struct EventScreenEffectData
+{
+	int FrameStart;
+	byte Type;
+	char field_5[3];
+	NJS_COLOR Color;
+	byte Fade;
+	byte field_D;
+	__int16 TexID;
+	int VisibleTime;
+	__int16 PosX;
+	__int16 PosY;
+	float Width;
+	float Height;
+	char field_20[32];
+};
+
+struct EventParticleData
+{
+	int FrameStart;
+	byte Type;
+	byte MotionID;
+	__int16 field_6;
+	float Setting1;
+	float Setting2;
+	float Setting3;
+	float Setting4;
+	char field_18[32];
+};
+
+struct EventLightingData
+{
+	int FrameStart;
+	int Type;
+	NJS_VECTOR Direction;
+	NJS_VECTOR Color;
+	float Intensity;
+	NJS_VECTOR AmbientColor;
+	char field_30[20];
+};
+
+struct EventBlurData
+{
+	int FrameStart;
+	int Duration;
+	char ModelIDs[6];
+	__int16 field_E;
+	int Instances;
+	char field_14[44];
+};
+
+struct EventParticleGeneratorData
+{
+	NJS_VECTOR Position;
+	NJS_VECTOR field_C;
+	__int16 field_18[4];
+	int FrameStart;
+	NJS_VECTOR Spread;
+	int Count;
+	int field_34;
+	int Type;
+	int field_3C;
+};
+
+struct EventVideoData
+{
+	int FrameStart;
+	__int16 PosX;
+	__int16 PosY;
+	float Depth;
+	byte OverlayType;
+	byte OverlayTexID;
+	__int16 field_E;
+	char VideoName[48];
+};
+
+struct EventEffectData
+{
+	EventSubtitleData subtitles[256];
+	EventAudioData audio[512];
+	EventScreenEffectData screeneffects[64];
+	EventParticleData particles[2048];
+	EventLightingData lighting[1024];
+	EventBlurData blur[64];
+	EventParticleGeneratorData particlegen[64];
+	EventVideoData video[64];
+};
+
+struct MiniEventParts
+{
+	NJS_OBJECT* Part;
+	NJS_MOTION* PartAnimation;
+	NJS_MOTION* PartShapeMotion;
+};
+
+struct MiniEventAssets
+{
+	NJS_MOTION* BodyAnimation;
+	MiniEventParts Data[4];
+};
+
+struct MiniEventFile
+{
+	int Flags;
+	NJS_MOTION *Camera;
+	MiniEventAssets* Assets[8];
+};
+
+struct MiniEventEffects
+{
+	int FrameStart;
+	byte FadeType;
+	char SFXEntry1;
+	char SFXEntry2;
+	byte field_7;
+	__int16 VoiceID;
+	char MusicData[16];
+	char JingleData[16];
+	__int16 field_2A;
+	int RumbleControl;
+	char field_30[28];
+};
+
+struct MiniEventEffectFile
+{
+	EventSubtitleData subtitles[32];
+	MiniEventEffects effects[64];
+	NJS_VECTOR field_1400;
+	float field_140C;
+	NJS_VECTOR field_1410;
+};
+
+struct TailsPlainFile
+{
+	NJS_TEXLIST* Texlist;
+	NJS_OBJECT* Model;
+	NJS_MOTION* Motion;
+	NJS_MOTION* Camera;
+};
+
+struct CutsceneVoices
+{
+	Uint32 InternalID;
+	int	   VoiceFileID;
+};
+
+struct SummaryData
+{
+	int StringID;
+	int VoiceID;
+	int JPNFrameStart;
+	int ENGFrameStart;
+	int FRNFrameStart;
+	int SPAFrameStart;
+	int GERFrameStart;
+	int ITAFrameStart;
+};
+
+struct SummaryDataArray
+{
+	int StoryType;
+	int StorySequenceID;
+	int BackgroundID;
+	SummaryData* Data;
+	int DataCount;
+};
+
+struct MenuVoices
+{
+	int Default;
+	int Shadow;
+	int Rouge;
+	int Eggman;
+	int Maria;
+	int Secretary;
+	int Omochao;
+	int Amy;
+	int Tails;
+	int Knuckles;
+	int Sonic;
+};
+
+struct TextureAnimData
+{
+	int Type;
+	int field_4;
 	int field_8;
-	void *field_C;
-	void *field_10;
-	void *field_14;
-	void *field_18;
-	NJS_OBJECT **field_1C;
-	void *field_20;
-	void *field_24;
-	int field_28;
+	int field_C;
+	short* UVData;
+	int field_14[4];
+};
+
+struct ModelTextureAnimationArray1
+{
+	NJS_OBJECT* Model;
+	TextureAnimData* texanim;
+	int field_8;
+};
+
+struct ModelTextureAnimationArray2
+{
+	int Type;
+	NJS_OBJECT* Model;
+	TextureAnimData* texanim;
+	int field_C;
+	int field_10;
+};
+
+struct ModelTextureAnimationArray3
+{
+	NJS_OBJECT* Model;
+	TextureAnimData* texanim;
+	int field_8;
+	int field_C;
 };
 
 struct ControlShadowCharObj2
@@ -2434,6 +2856,24 @@ struct CharaObjectData
 	float anonymous_13;
 };
 
+struct VersusIntroData
+{
+	int IntroAnimID;
+	NJS_MOTION* IntroCamera;
+	float field_8;
+	int NeutralIntroVoice;
+	int WinningIntroVoice;
+	int LosingIntroVoice;
+};
+
+struct IdleVoiceArray
+{
+	char Character;
+	char Level;
+	__int16 Voice1;
+	__int16 Voice2;
+};
+
 struct KartSpecialInfo
 {
 	int ID;
@@ -2464,6 +2904,52 @@ struct KartSFXAndShadows
 	int FirstVoice;
 	int LastVoice;
 	NJS_OBJECT* ShadowModel;
+};
+
+struct CartStreetLightPos
+{
+	NJS_VECTOR Position;
+	int YRotation;
+};
+
+struct CartCourseModelInfo
+{
+	NJS_OBJECT* Model;
+	NJS_OBJECT* Collision;
+	NJS_VECTOR EndPoint;
+	int YRotation;
+	char field_18[76];
+	CartStreetLightPos* StreetLights;
+	int StreetLightCount;
+};
+
+struct KartCourse
+{
+	char* Course;
+	int Length;
+};
+
+struct KartPhysics
+{
+	float Acceleration;
+	float BrakePower;
+	float Deceleration;
+	float SpeedCap;
+	float Weight;
+	float Unk1;
+	float DriftHandling;
+	float DriftSpeedThreshold;
+	float Unk2;
+	float TopSpeed;
+};
+
+struct KartDownloadData
+{
+	KartPhysics physics;
+	NJS_VECTOR field_28;
+	NJS_VECTOR field_34;
+	int field_40;
+	char MusicTrack;
 };
 
 struct ChaoMotionTableEntry
@@ -3379,5 +3865,25 @@ struct sp_info
 };
 
 typedef motionwk motionwk2;
+
+struct PAKTexInf
+{
+	char filename[28];
+	Uint32 globalIndex;
+	Uint32 Type;
+	Uint32 BitDepth;
+	Uint32 PixelFormat;
+	Uint32 nWidth;
+	Uint32 nHeight;
+	Uint32 TextureSize;
+	Uint32 fSurfaceFlags;
+};
+
+struct CreditsEntry
+{
+    int Type;
+    float A, R, G, B;
+    const char* Text;
+};
 
 #pragma pack(pop)

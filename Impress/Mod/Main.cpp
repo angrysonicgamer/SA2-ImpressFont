@@ -2,7 +2,6 @@
 #include "FontSetup.h"
 
 
-
 extern "C"
 {
 	__declspec(dllexport) void Init(const char* path, const HelperFunctions &helperFunctions)

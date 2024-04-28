@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-#define WIN32_LEAN_AND_MEAN             // Исключите редко используемые компоненты из заголовков Windows
-// Файлы заголовков Windows
+#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+// Windows Header Files
 #include <windows.h>
