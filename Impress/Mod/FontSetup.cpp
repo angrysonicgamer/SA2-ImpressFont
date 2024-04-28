@@ -1,8 +1,8 @@
 ﻿#include "pch.h"
+#include "FontSetup.h"
 #include <string>
 #include <vector>
 #include <fstream>
-#include "API.h"
 
 
 const int FontFileSize = 1016064;
@@ -10,12 +10,17 @@ DataPointer(int*, FontDataAddress, 0xB5D64C);
 DataArray(byte, MainFontSetup, 0x89F3E8, 224);
 DataArray(byte, ChaoWorldFontSetup, 0x8A78D0, 224);
 
-std::string ImpressPath = "\\gd_PC\\efmsgfont_ascii24S.bin";
+const char* ConvertToCStyle(const std::string& text)
+{
+	char* result = new char[text.length()];
+	strcpy(result, text.c_str());
+	return result;
+}
 
 
-/* Loading font */
+// Loading font
 
-std::vector<char> ReadFontFile(std::string path)
+std::vector<char> ReadFontFile(const std::string& path)
 {
 	std::ifstream input(path, std::ios::binary);
 
@@ -28,14 +33,27 @@ std::vector<char> ReadFontFile(std::string path)
 	return bytes;
 }
 
-void LoadMainFont(std::string modPath, std::string fontPath) //function to export (just playing around)
+void LoadMainFont(const std::string& path)
 {
-	std::vector<char> fontMemory = ReadFontFile(modPath + fontPath);
-	memcpy(FontDataAddress, fontMemory.data(), FontFileSize);
+	std::vector<char> fontMemory = ReadFontFile(path);
+	std::memcpy(FontDataAddress, fontMemory.data(), FontFileSize);
+}
+
+void LoadChaoFont(const std::string& path)
+{
+	WriteData((const char**)0x12E9BD0, ConvertToCStyle("..\\..\\" + path));
 }
 
 
-/* Setting up character widths */
+void LoadFont(const char* modPath, const char* fontPath)
+{
+	std::string path = std::string(modPath) + fontPath;
+	LoadMainFont(path);
+	LoadChaoFont(path);
+}
+
+
+// Setting up character widths
 
 struct LetterData
 {
@@ -45,7 +63,7 @@ struct LetterData
 
 std::vector<LetterData> ImpressSetup
 {
-	{ '!', 5 }, //using chars here to visualize
+	{ '!', 5 }, // using chars here to visualize
 	{ '"', 8 },
 	{ '#', 15 },
 	{ '$', 12 },
@@ -233,8 +251,8 @@ void WriteFontData(const std::vector<LetterData>& fontData)
 }
 
 
-void SetUpFont(const char* modPath)
+void SetUpFont(const char* modPath, const char* fontPath)
 {
-	LoadMainFont(modPath, ImpressPath);
+	LoadFont(modPath, fontPath);
 	WriteFontData(ImpressSetup);
 }

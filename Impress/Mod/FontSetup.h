@@ -1,3 +1,3 @@
 #pragma once
 
-void SetUpFont(const char* modPath);
+void SetUpFont(const char* modPath, const char* fontPath);

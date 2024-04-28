@@ -30,7 +30,6 @@
     <ClInclude Include="Include\SA2 Mod Loader\SA2ModLoader.h" />
     <ClInclude Include="Include\SA2 Mod Loader\SA2Structs.h" />
     <ClInclude Include="Include\SA2 Mod Loader\SA2Variables.h" />
-    <ClInclude Include="Mod\API.h" />
     <ClInclude Include="Mod\FontSetup.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -115,7 +114,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;IMPRESS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;IMPRESS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>

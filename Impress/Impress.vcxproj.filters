@@ -42,9 +42,6 @@
     <ClInclude Include="Include\SA2 Mod Loader\SA2Variables.h">
       <Filter>Include\SA2 Mod Loader</Filter>
     </ClInclude>
-    <ClInclude Include="Mod\API.h">
-      <Filter>Mod</Filter>
-    </ClInclude>
     <ClInclude Include="Mod\FontSetup.h">
       <Filter>Mod</Filter>
     </ClInclude>
