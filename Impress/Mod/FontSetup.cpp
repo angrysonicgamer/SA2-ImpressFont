@@ -12,9 +12,7 @@ DataArray(byte, ChaoWorldFontSetup, 0x8A78D0, 224);
 
 const char* ConvertToCStyle(const std::string& text)
 {
-	char* result = new char[text.length()];
-	strcpy(result, text.c_str());
-	return result;
+	return strcpy(new char[text.length()], text.c_str());
 }
 
 
