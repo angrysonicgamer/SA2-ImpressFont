@@ -20,16 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\magic.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\MemAccess.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\ninja.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\njdef.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\SA2Enums.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\SA2Functions.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\SA2ModInfo.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\SA2ModLoader.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\SA2Structs.h" />
-    <ClInclude Include="Include\SA2 Mod Loader\SA2Variables.h" />
     <ClInclude Include="Mod\FontSetup.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -119,7 +109,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sa2-mod-loader\SA2ModLoader\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

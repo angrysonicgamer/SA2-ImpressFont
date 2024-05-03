@@ -9,6 +9,6 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
-#include "Include/SA2 Mod Loader/SA2ModLoader.h"
+#include "SA2ModLoader.h" // I don't really need to add the whole project to the solution if I only need the headers, right?
 
 #endif //PCH_H
