@@ -2,7 +2,6 @@
 #include "FontSetup.h"
 #include <string>
 #include <vector>
-#include <fstream>
 
 
 VoidFunc(UnloadFonts, 0x6B62C0);
