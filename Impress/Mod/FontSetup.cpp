@@ -5,10 +5,12 @@
 #include <fstream>
 
 
-const int FontFileSize = 1016064;
-DataPointer(int*, FontDataAddress, 0xB5D64C);
+VoidFunc(UnloadFonts, 0x6B62C0);
+VoidFunc(LoadFonts, 0x6B6130);
+
 DataArray(byte, MainFontSetup, 0x89F3E8, 224);
 DataArray(byte, ChaoWorldFontSetup, 0x8A78D0, 224);
+
 
 const char* ConvertToCStyle(const std::string& text)
 {
@@ -18,23 +20,11 @@ const char* ConvertToCStyle(const std::string& text)
 
 // Loading font
 
-std::vector<char> ReadFontFile(const std::string& path)
-{
-	std::ifstream input(path, std::ios::binary);
-
-	std::vector<char> bytes(
-		(std::istreambuf_iterator<char>(input)),
-		(std::istreambuf_iterator<char>()));
-
-	input.close();
-
-	return bytes;
-}
-
 void LoadMainFont(const std::string& path)
 {
-	std::vector<char> fontMemory = ReadFontFile(path);
-	std::memcpy(FontDataAddress, fontMemory.data(), FontFileSize);
+	WriteData((const char**)0xB5D648, ConvertToCStyle("..\\..\\" + path));
+	UnloadFonts();
+	LoadFonts();
 }
 
 void LoadChaoFont(const std::string& path)
