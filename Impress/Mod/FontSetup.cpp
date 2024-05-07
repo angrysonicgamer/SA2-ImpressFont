@@ -19,24 +19,13 @@ const char* ConvertToCStyle(const std::string& text)
 
 // Loading font
 
-void LoadMainFont(const std::string& path)
-{
-	WriteData((const char**)0xB5D648, ConvertToCStyle("..\\..\\" + path));
-	UnloadFonts();
-	LoadFonts();
-}
-
-void LoadChaoFont(const std::string& path)
-{
-	WriteData((const char**)0x12E9BD0, ConvertToCStyle("..\\..\\" + path));
-}
-
-
 void LoadFont(const char* modPath, const char* fontPath)
 {
 	std::string path = std::string(modPath) + fontPath;
-	LoadMainFont(path);
-	LoadChaoFont(path);
+	WriteData((const char**)0xB5D648, ConvertToCStyle("..\\..\\" + path)); // main font
+	WriteData((const char**)0x12E9BD0, ConvertToCStyle("..\\..\\" + path)); // chao font
+	UnloadFonts();
+	LoadFonts();
 }
 
 
