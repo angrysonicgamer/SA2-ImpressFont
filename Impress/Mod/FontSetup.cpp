@@ -38,21 +38,20 @@ void CalculateCharacterWidths()
 	
 	for (int charNumber = 1; charNumber < 224; charNumber++) // starting from 1 because 0 is space (empty pixels)
 	{
-		std::vector<int> rowWidthValues;
-		rowWidthValues.push_back(0);
+		int width = 0;
 		for (int row = 0; row < 24; row++)
 		{
-			int rowWidth = 0;
 			for (int column = 0; column < 24; column++)
 			{
 				if (AsciiSFontBuffer[charNumber * 24 * 24 + row * 24 + column] != 0)
-					rowWidth = column + 1; // getting the last non-zero value in a row, that would represent its width
+				{
+					if (column > width)
+						width = column;
+				}
 			}
-			if (rowWidth > rowWidthValues.back())
-				rowWidthValues.push_back(rowWidth); // adding that width if it tops a previous width
 		}
-		MainFontSetup[charNumber] = rowWidthValues.back(); // the max width would be the character width we need
-		ChaoWorldFontSetup[charNumber] = rowWidthValues.back();
+		MainFontSetup[charNumber] = width + 1;
+		ChaoWorldFontSetup[charNumber] = width + 1;
 	}
 }
 
