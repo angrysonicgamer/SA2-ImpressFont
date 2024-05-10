@@ -4,6 +4,9 @@
     <Filter Include="Mod">
       <UniqueIdentifier>{0933349e-1642-494e-9bb9-39446d1da630}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render Fix">
+      <UniqueIdentifier>{da0d7bfe-f912-4adf-b46e-30f9d47122c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mod\FontSetup.h">
@@ -11,6 +14,9 @@
     </ClInclude>
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Render Fix\renderfix_api.h">
+      <Filter>Render Fix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mod\FontSetup.cpp">
