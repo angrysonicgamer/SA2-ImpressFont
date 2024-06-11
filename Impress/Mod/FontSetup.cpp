@@ -60,7 +60,8 @@ DataArray(FontInfo, FontsList, 0xB5D640, 3);
 DataArray(ChaoFontInfo, ChaoFontsList, 0x12E9BC4, 3);
 DataArray(FontData, Fonts, 0xB5D658, 6);
 
-const char* ImpressPath = "\\Font\\efmsgfont_ascii24S_impress.bin";
+const char* ImpressPath = "Font\\efmsgfont_ascii24S_impress.bin";
+char FullFontPath[MAX_PATH];
 Uint8 FontWidthsSetup[224];
 
 
@@ -74,9 +75,9 @@ const char* ConvertToCStyle(const std::string& text)
 
 void LoadFont(const char* modPath)
 {
-	std::string fullFontPath = "..\\..\\" + std::string(modPath) + ImpressPath;
-	FontsList[AsciiS].FontFileName = ConvertToCStyle(fullFontPath); // main font
-	ChaoFontsList[AsciiS].FontFileName = ConvertToCStyle(fullFontPath); // chao font
+	sprintf(FullFontPath, "..\\..\\%s\\%s", modPath, ImpressPath);
+	FontsList[AsciiS].FontFileName = FullFontPath; // main font
+	ChaoFontsList[AsciiS].FontFileName = FullFontPath; // chao font
 	UnloadFonts();
 	LoadFonts();
 }
