@@ -4,13 +4,64 @@
 #include <string>
 
 
+// Structs based on my own font stuff research
+
+enum FontTypes
+{
+	Kanji,
+	AsciiS,
+	AsciiE,
+};
+
+struct FontCharacterData
+{
+	int Color[24][24];
+};
+
+struct FontInfo
+{
+	const char* FontFileName;
+	FontCharacterData* FontBuffer;
+};
+
+struct ChaoFontInfo
+{
+	const char* FontFileName;
+	FontCharacterData* FontBuffer;
+	Uint8* WidthsSetup;
+};
+
+struct AsciiFontData
+{
+	Uint8* WidthsSetup;
+	FontCharacterData* FontBuffer;
+	FontTypes FontType;
+};
+
+struct KanjiFontData
+{
+	Uint8* WidthsSetup;
+	FontCharacterData* FontBuffer;
+	FontTypes FontType;
+	int SomethingSjisRelated;
+};
+
+struct FontData
+{
+	int Null;
+	AsciiFontData AsciiData;
+	KanjiFontData KanjiData;
+};
+
+
 VoidFunc(UnloadFonts, 0x6B62C0);
 VoidFunc(LoadFonts, 0x6B6130);
-DataPointer(int*, AsciiSFontBuffer, 0xB5D64C);
-DataArray(byte, MainFontSetup, 0x89F3E8, 224);
-DataArray(byte, ChaoWorldFontSetup, 0x8A78D0, 224);
+DataArray(FontInfo, FontsList, 0xB5D640, 3);
+DataArray(ChaoFontInfo, ChaoFontsList, 0x12E9BC4, 3);
+DataArray(FontData, Fonts, 0xB5D658, 6);
 
 const char* ImpressPath = "\\Font\\efmsgfont_ascii24S_impress.bin";
+Uint8 FontWidthsSetup[224];
 
 
 const char* ConvertToCStyle(const std::string& text)
@@ -23,9 +74,9 @@ const char* ConvertToCStyle(const std::string& text)
 
 void LoadFont(const char* modPath)
 {
-	std::string fullFontPath = std::string(modPath) + ImpressPath;
-	WriteData((const char**)0xB5D648, ConvertToCStyle("..\\..\\" + fullFontPath)); // main font
-	WriteData((const char**)0x12E9BD0, ConvertToCStyle("..\\..\\" + fullFontPath)); // chao font
+	std::string fullFontPath = "..\\..\\" + std::string(modPath) + ImpressPath;
+	FontsList[AsciiS].FontFileName = ConvertToCStyle(fullFontPath); // main font
+	ChaoFontsList[AsciiS].FontFileName = ConvertToCStyle(fullFontPath); // chao font
 	UnloadFonts();
 	LoadFonts();
 }
@@ -35,8 +86,7 @@ void LoadFont(const char* modPath)
 
 void CalculateCharacterWidths()
 {
-	MainFontSetup[0] = 9; // vanilla width of space
-	ChaoWorldFontSetup[0] = 9;
+	FontWidthsSetup[0] = 9; // vanilla width of space
 	
 	for (int charNumber = 1; charNumber < 224; charNumber++) // starting from 1 because 0 is space (empty pixels)
 	{
@@ -45,15 +95,14 @@ void CalculateCharacterWidths()
 		{
 			for (int column = 0; column < 24; column++)
 			{
-				if (AsciiSFontBuffer[charNumber * 24 * 24 + row * 24 + column] != 0)
+				if (FontsList[AsciiS].FontBuffer[charNumber].Color[row][column] != 0)
 				{
 					if (column > maxColumn)
 						maxColumn = column;
 				}
 			}
 		}
-		MainFontSetup[charNumber] = maxColumn + 1;
-		ChaoWorldFontSetup[charNumber] = maxColumn + 1;
+		FontWidthsSetup[charNumber] = maxColumn + 1;
 	}
 }
 
@@ -64,6 +113,11 @@ void InitFont(const char* modPath)
 {
 	LoadFont(modPath);
 	CalculateCharacterWidths();
+	for (int language = Language_English; language <= Language_Italian; language++)
+	{
+		Fonts[language].AsciiData.WidthsSetup = FontWidthsSetup;
+	}	
+	ChaoFontsList[AsciiS].WidthsSetup = FontWidthsSetup;
 }
 
 
