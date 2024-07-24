@@ -43,7 +43,8 @@ struct KanjiFontData
 	Uint8* WidthsSetup;
 	FontCharacterData* FontBuffer;
 	FontTypes FontType;
-	int SomethingSjisRelated;
+	Uint8 ShiftMin, ShiftMax;
+	short Null;
 };
 
 struct FontData
