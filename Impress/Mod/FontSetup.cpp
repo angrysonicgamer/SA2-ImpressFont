@@ -12,10 +12,17 @@ enum FontTypes
 	AsciiS,
 	AsciiE,
 };
+struct FontColor
+{
+	Uint8 B;
+	Uint8 G;
+	Uint8 R;
+	Uint8 Alpha;
+};
 
 struct FontCharacterData
 {
-	int Color[24][24];
+	FontColor Color[24][24];
 };
 
 struct FontInfo
@@ -91,7 +98,7 @@ void CalculateCharacterWidths()
 		{
 			for (int column = 0; column < 24; column++)
 			{
-				if (FontsList[AsciiS].FontBuffer[charNumber].Color[row][column] != 0)
+				if (FontsList[AsciiS].FontBuffer[charNumber].Color[row][column].Alpha != 0)
 				{
 					if (column > maxColumn)
 						maxColumn = column;
