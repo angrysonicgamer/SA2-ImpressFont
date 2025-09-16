@@ -5,6 +5,6 @@ Impress font for Sonic Adventure 2 with custom character widths setting. Suitabl
 **Doesn't require manual replacement.**
 
 
-- Meant to use with [SA2 Mod Loader](https://gamebanana.com/tools/6333)
+- You need [SA Mod Manager](https://gamebanana.com/tools/15436) to play this mod.
 
 - [Mod page on Gamebanana](https://gamebanana.com/mods/469542)
